@@ -1,0 +1,7 @@
+/home/shiro/ecom/src/main/java/ecommerce/ecom/EcomApplication.java
+/home/shiro/ecom/src/main/java/ecommerce/ecom/configurations/SecurityConfig.java
+/home/shiro/ecom/src/main/java/ecommerce/ecom/controller/Error.java
+/home/shiro/ecom/src/main/java/ecommerce/ecom/controller/UserController.java
+/home/shiro/ecom/src/main/java/ecommerce/ecom/dto/User.java
+/home/shiro/ecom/src/main/java/ecommerce/ecom/repository/UserRepository.java
+/home/shiro/ecom/src/main/java/ecommerce/ecom/service/UserService.java
