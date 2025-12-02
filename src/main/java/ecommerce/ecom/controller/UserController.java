@@ -3,6 +3,7 @@ package ecommerce.ecom.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import ecommerce.ecom.dto.User;
 import ecommerce.ecom.service.UserService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/user")
 public class UserController {
     
