@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ecommerce.ecom.Entities.User;
+import ecommerce.ecom.dto.CommonDTO;
+import ecommerce.ecom.dto.UserBaseDTO;
 import ecommerce.ecom.dto.UserLoginDTO;
 import ecommerce.ecom.service.UserService;
 
@@ -26,14 +28,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public UserLoginDTO loginUser(@RequestBody UserLoginDTO loginUser){
+    public UserLoginDTO loginUser(@RequestBody UserBaseDTO loginUser){
         return userService.login(loginUser);
     }
 
-    @PostMapping("/add")
-    public User addUser(@RequestBody User newUser){
-        return userService.addUser(newUser);
+    @PostMapping("/register")
+    public CommonDTO registerUser(@RequestBody UserBaseDTO newUser){
+        return userService.registerUser(newUser);
     }
-
-   
 }

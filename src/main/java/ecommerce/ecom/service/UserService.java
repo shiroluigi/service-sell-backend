@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import ecommerce.ecom.Entities.User;
+import ecommerce.ecom.common.UserCommonService;
+import ecommerce.ecom.dto.CommonDTO;
+import ecommerce.ecom.dto.UserBaseDTO;
 import ecommerce.ecom.dto.UserLoginDTO;
 import ecommerce.ecom.repository.UserRepository;
 
@@ -15,20 +18,28 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    UserCommonService userCommonService;
 
-    public User addUser(User newUser){
-        userRepository.save(newUser);
-        return newUser;
+    public CommonDTO registerUser(UserBaseDTO newUser){
+        Optional<List<User>> userOptionalList = userCommonService.findUser(newUser);
+        if(userOptionalList.isPresent() && !userOptionalList.get().isEmpty()){
+            return new CommonDTO("User Registration","fail","Email already exists");
+        }else{
+            User u = UserBaseDTO.toUser(newUser);
+            userRepository.save(u);
+            return new CommonDTO("User Registration","success",null);
+        }
     }
 
     public List<User> getUsers(){
         return userRepository.findAll();
     }
 
-    public UserLoginDTO login(UserLoginDTO loginUser) {System.out.println("UserService.getUsers() called");
-        Optional<User> userOptional = userRepository.findByEmail(loginUser.getEmail());
-        if (userOptional.isPresent()){
-            User user = userOptional.get();
+    public UserLoginDTO login(UserBaseDTO loginUser) {
+        Optional<List<User>> userOptionalList = userCommonService.findUser(loginUser);
+        if (userOptionalList.isPresent() && !userOptionalList.get().isEmpty()){
+            User user = userOptionalList.get().get(0); // FIX
             UserLoginDTO userLoginDto = UserLoginDTO.toDto(user);
             return userLoginDto;
         }else{       
