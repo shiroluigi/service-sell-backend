@@ -1,11 +1,13 @@
 package ecommerce.ecom.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import ecommerce.ecom.dto.User;
+import ecommerce.ecom.Entities.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
-    
+    Optional<User> findByEmail(String email);  
 }

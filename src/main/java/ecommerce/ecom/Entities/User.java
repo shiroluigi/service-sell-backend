@@ -1,4 +1,4 @@
-package ecommerce.ecom.dto;
+package ecommerce.ecom.Entities;
 
 import org.springframework.stereotype.Component;
 
@@ -20,4 +20,5 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
+    private String password;
 }
