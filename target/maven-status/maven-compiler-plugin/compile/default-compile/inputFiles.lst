@@ -1,4 +1,5 @@
 /home/shiro/ecom/src/main/java/ecommerce/ecom/EcomApplication.java
+/home/shiro/ecom/src/main/java/ecommerce/ecom/Entities/ServicesShop.java
 /home/shiro/ecom/src/main/java/ecommerce/ecom/Entities/User.java
 /home/shiro/ecom/src/main/java/ecommerce/ecom/common/Cryptography.java
 /home/shiro/ecom/src/main/java/ecommerce/ecom/common/UserCommonService.java
@@ -9,5 +10,6 @@
 /home/shiro/ecom/src/main/java/ecommerce/ecom/dto/CommonDTO.java
 /home/shiro/ecom/src/main/java/ecommerce/ecom/dto/UserBaseDTO.java
 /home/shiro/ecom/src/main/java/ecommerce/ecom/dto/UserLoginDTO.java
+/home/shiro/ecom/src/main/java/ecommerce/ecom/repository/ServicesShopRepository.java
 /home/shiro/ecom/src/main/java/ecommerce/ecom/repository/UserRepository.java
 /home/shiro/ecom/src/main/java/ecommerce/ecom/service/UserService.java
