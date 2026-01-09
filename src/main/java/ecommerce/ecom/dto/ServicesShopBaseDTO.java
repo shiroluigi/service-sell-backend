@@ -7,19 +7,21 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ServicesShopBaseDTO {
-    private int id;
+    private String id;
     private String service_name;
-    private int price; 
+    private String price; 
     private String currency;
     private String description;
+    private String duration;
 
     public static ServicesShopBaseDTO toDto(ServicesShop s){
         ServicesShopBaseDTO c = new ServicesShopBaseDTO();
         c.setCurrency(s.getCurrency());
         c.setDescription(s.getDescription());
-        c.setId(s.getId());
-        c.setPrice(s.getPrice());
+        c.setId(""+s.getId());
+        c.setPrice(""+s.getPrice());
         c.setService_name(s.getService_name());
+        c.setDuration(s.getDuration());
         return c;
     }
 }

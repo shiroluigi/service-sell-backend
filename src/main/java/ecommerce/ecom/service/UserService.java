@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import ecommerce.ecom.Entities.User;
 import ecommerce.ecom.common.UserCommonService;
@@ -13,7 +13,7 @@ import ecommerce.ecom.dto.UserBaseDTO;
 import ecommerce.ecom.dto.UserLoginDTO;
 import ecommerce.ecom.repository.UserRepository;
 
-@Component
+@Service
 public class UserService {
 
     @Autowired

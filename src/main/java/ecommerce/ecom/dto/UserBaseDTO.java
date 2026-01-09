@@ -11,6 +11,8 @@ public class UserBaseDTO {
     private String lastName;
     private String email;
     private String password;
+    private String phone;
+    private String countryCode;
 
 
     public static User toUser(UserBaseDTO user){
@@ -19,6 +21,8 @@ public class UserBaseDTO {
         converted.setLastName(user.getLastName());
         converted.setEmail(user.getEmail());
         converted.setPassword(Cryptography.encryptTobCrypt(user.getPassword()));
+        converted.setPhone(user.getPhone());
+        converted.setCountryCode(user.getCountryCode());
         return converted;
     }
 }

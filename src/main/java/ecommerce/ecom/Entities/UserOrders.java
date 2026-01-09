@@ -30,4 +30,9 @@ public class UserOrders {
     private PaymentStatusEnum paymentStatus;
     @OneToOne
     private ServicesShop service;
+    private String refundUpi;
+    private String fullName;
+    private String paymentReference;
+    private String phone;
+    private String projectRequirements;
 }

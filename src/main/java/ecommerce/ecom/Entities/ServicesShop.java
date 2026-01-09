@@ -18,4 +18,5 @@ public class ServicesShop {
     private int price; 
     private String currency;
     private String description;
+    private String duration;
 }

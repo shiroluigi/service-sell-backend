@@ -15,6 +15,8 @@ public class UserLoginDTO extends UserBaseDTO{
         converted.setLastName(user.getLastName());
         converted.setEmail(user.getEmail());
         converted.setId(user.getId());
+        converted.setCountryCode(user.getCountryCode());
+        converted.setPhone(user.getPhone());
         return converted;
     }
 
