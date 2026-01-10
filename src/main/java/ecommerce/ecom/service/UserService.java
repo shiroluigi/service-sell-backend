@@ -1,16 +1,16 @@
 package ecommerce.ecom.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import ecommerce.ecom.Entities.User;
 import ecommerce.ecom.common.UserCommonService;
 import ecommerce.ecom.dto.CommonDTO;
 import ecommerce.ecom.dto.UserBaseDTO;
-import ecommerce.ecom.dto.UserLoginDTO;
 import ecommerce.ecom.repository.UserRepository;
 
 @Service
@@ -21,14 +21,14 @@ public class UserService {
     @Autowired
     UserCommonService userCommonService;
 
-    public CommonDTO registerUser(UserBaseDTO newUser){
-        Optional<List<User>> userOptionalList = userCommonService.findUser(newUser);
-        if(userOptionalList.isPresent() && !userOptionalList.get().isEmpty()){
-            return new CommonDTO("User Registration","fail","Email already exists");
+    public ResponseEntity<CommonDTO> registerUser(UserBaseDTO newUser){
+        List<User> userList = userCommonService.findUser(newUser);
+        if(!userList.isEmpty()){
+            return new ResponseEntity<>(new CommonDTO("User Registration","fail","Email already exists"),HttpStatus.CONFLICT); 
         }else{
             User u = UserBaseDTO.toUser(newUser);
             userRepository.save(u);
-            return new CommonDTO("User Registration","success",null);
+            return new ResponseEntity<>(new CommonDTO("User Registration","SUCCESS",""),HttpStatus.CREATED); 
         }
     }
 
@@ -36,16 +36,15 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public UserLoginDTO login(UserBaseDTO loginUser) {
-        Optional<List<User>> userOptionalList = userCommonService.findUser(loginUser);
-        if (userOptionalList.isPresent() && !userOptionalList.get().isEmpty()){
-            User user = userOptionalList.get().get(0); // FIX
-            UserLoginDTO userLoginDto = UserLoginDTO.toDto(user);
-            return userLoginDto;
+    public ResponseEntity<UserBaseDTO> login(UserBaseDTO loginUser) {
+        List<User> userList = userCommonService.findUser(loginUser);
+        if (!userList.isEmpty()){
+            User user = userList.get(0);
+            UserBaseDTO userLoginDto = UserBaseDTO.toDto(user);
+            return new ResponseEntity<>(userLoginDto, HttpStatus.OK);
         }else{       
-            UserLoginDTO user = new UserLoginDTO();
-            user.setErrMsg("User login not found");
-            return user;
+            UserBaseDTO user = new UserBaseDTO();
+            return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
         }
     }
 }

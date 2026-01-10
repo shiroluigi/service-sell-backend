@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import ecommerce.ecom.Entities.ServicesShop;
-import ecommerce.ecom.dto.ServicesShopResponseDTO;
+import ecommerce.ecom.dto.ServicesShopBaseDTO;
 import ecommerce.ecom.repository.ServicesShopRepository;
 
 @Service
@@ -16,22 +18,23 @@ public class ServicesShopService {
     @Autowired
     private ServicesShopRepository servicesShopRepository;
 
-    public List<ServicesShopResponseDTO> getAllServices() {
+    public ResponseEntity<List<ServicesShopBaseDTO>> getAllServices() {
         List<ServicesShop> servicesRaw = servicesShopRepository.findAll();
-        List<ServicesShopResponseDTO> services = new ArrayList<ServicesShopResponseDTO>();
+        List<ServicesShopBaseDTO> services = new ArrayList<ServicesShopBaseDTO>();
         for (ServicesShop service : servicesRaw){
-            ServicesShopResponseDTO converted = ServicesShopResponseDTO.toDto(service);
+            ServicesShopBaseDTO converted = ServicesShopBaseDTO.toDto(service);
             services.add(converted);
         }
-        return services;
+        return new ResponseEntity<>(services, HttpStatus.OK);
     }
 
-    public ServicesShopResponseDTO getSingleService(int id) {
+    public ResponseEntity<ServicesShopBaseDTO> getSingleService(int id) {
         Optional<ServicesShop> service = servicesShopRepository.findById(id);
         if(service.isPresent()){
-            return ServicesShopResponseDTO.toDto(service.get());
+            ServicesShopBaseDTO s = ServicesShopBaseDTO.toDto(service.get());
+            return new ResponseEntity<>(s,HttpStatus.OK);
         }else{
-            return new ServicesShopResponseDTO("Not Found");
+            return new ResponseEntity<>(new ServicesShopBaseDTO(), HttpStatus.NOT_FOUND);
         }
     }
 }

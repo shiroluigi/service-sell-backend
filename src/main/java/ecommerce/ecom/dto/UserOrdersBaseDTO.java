@@ -20,6 +20,7 @@ public class UserOrdersBaseDTO {
     private String paymentReference;
     private String phone;
     private String projectRequirements;
+    private String price;
 
     public static UserOrders toUserOrders(UserOrdersBaseDTO dto){
         UserOrders userOrders = new UserOrders();
@@ -29,6 +30,20 @@ public class UserOrdersBaseDTO {
         userOrders.setProjectRequirements(dto.getProjectRequirements());
         userOrders.setOrderStatus(OrderStatusEnum.ORDER_PLACED);
         userOrders.setPaymentStatus(PaymentStatusEnum.PENDING_APPROVAL);
+        userOrders.setRefundUpi(dto.getRefundUpi());
+        return userOrders;
+    }
+    public static UserOrdersBaseDTO toDto(UserOrders obj){
+        UserOrdersBaseDTO userOrders = new UserOrdersBaseDTO();
+        userOrders.setId(obj.getId());
+        userOrders.setTimestamp(obj.getTimestamp().toString());
+        userOrders.setOrderStatus(obj.getOrderStatus().toString());
+        userOrders.setPaymentStatus(obj.getPaymentStatus().toString());
+        userOrders.setFullName(obj.getFullName());
+        userOrders.setPaymentReference(obj.getPaymentReference());
+        userOrders.setPhone(obj.getPhone());
+        userOrders.setProjectRequirements(obj.getProjectRequirements());
+        userOrders.setPrice(obj.getPrice());
         return userOrders;
     }
 }

@@ -1,6 +1,6 @@
 package ecommerce.ecom.common;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,18 +16,18 @@ public class UserCommonService {
     @Autowired
     private UserRepository userRepository;
 
-    public Optional<List<User>> findUser(UserBaseDTO user){
-        Optional<List<User>> res = null;
-        // Add other conditions, can search with first name or last name also
+    public List<User> findUser(UserBaseDTO user){
+        List<User> res = new ArrayList<>();
         if (user.getId() != null){
-            User u = userRepository.findById(user.getId()).get();
-            List<User> l = Arrays.asList(u);
-            return Optional.ofNullable(l);
+            Optional<User> u = userRepository.findById(user.getId());
+            if(u.isPresent()){
+                res.add(u.get());
+                return res;
+            }
         }
         else if (user.getEmail() != null){
-            res = userRepository.findAllByEmail(user.getEmail());
+            return userRepository.findAllByEmail(user.getEmail());
         }
         return res;
     }
-
 }
