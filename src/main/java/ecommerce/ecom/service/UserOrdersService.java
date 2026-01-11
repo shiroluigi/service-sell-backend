@@ -42,6 +42,8 @@ public class UserOrdersService {
             if (user.isEmpty()) {
                 return new ResponseEntity<>(new CommonDTO("ORDER", "ERROR", "User Not Found"), HttpStatus.BAD_REQUEST);
             }
+            // Check if this user has the same service ordered and order status is not DELIVERED
+            //TODO
             order.setUser(user.get(0));
             order.setTimestamp(LocalDateTime.now());
             ServicesShopBaseDTO serviceDto = new ServicesShopBaseDTO();
