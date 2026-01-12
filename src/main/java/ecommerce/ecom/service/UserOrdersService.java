@@ -19,6 +19,7 @@ import ecommerce.ecom.dto.CommonDTO;
 import ecommerce.ecom.dto.ServicesShopBaseDTO;
 import ecommerce.ecom.dto.UserBaseDTO;
 import ecommerce.ecom.dto.UserOrdersBaseDTO;
+import ecommerce.ecom.enums.OrderStatusEnum;
 import ecommerce.ecom.repository.UserOrdersRepository;
 
 @Service
@@ -42,10 +43,6 @@ public class UserOrdersService {
             if (user.isEmpty()) {
                 return new ResponseEntity<>(new CommonDTO("ORDER", "ERROR", "User Not Found"), HttpStatus.BAD_REQUEST);
             }
-            // Check if this user has the same service ordered and order status is not DELIVERED
-            //TODO
-            order.setUser(user.get(0));
-            order.setTimestamp(LocalDateTime.now());
             ServicesShopBaseDTO serviceDto = new ServicesShopBaseDTO();
             serviceDto.setId(orderDto.getService());
             Optional<ServicesShop> service = servicesShopCommonService.findService(serviceDto);
@@ -54,6 +51,17 @@ public class UserOrdersService {
                 return new ResponseEntity<>(new CommonDTO("ORDER", "ERROR", "Service Not Found"),
                         HttpStatus.BAD_REQUEST);
             }
+            // Check if this user has the same service ordered and order status is not DELIVERED
+            List<UserOrders> duplicateOrders = userOrdersRepository.hasUserAndServiceId(user.get(0), service.get());
+            for(UserOrders o : duplicateOrders){
+                if (!(o.getOrderStatus() == OrderStatusEnum.DELIVERED)){
+                    return new ResponseEntity<>(new CommonDTO("ORDER", "ERROR", "Same order exists and is still not delivered. Please wait for respose or request cancellation first."),
+                        HttpStatus.CONFLICT);
+                }
+            }
+            order.setUser(user.get(0));
+            order.setTimestamp(LocalDateTime.now());
+            
             order.setService(service.get());
             order.setPrice(service.get().getCurrency() +" "+ service.get().getPrice());
             // Persist
@@ -76,6 +84,14 @@ public class UserOrdersService {
             return new ResponseEntity<>(orders, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+
+    public ResponseEntity<UserOrdersBaseDTO> getOrderUsingId(String orderId) {
+        Optional<UserOrders> order = userOrdersRepository.findById(orderId);
+        if(order.isPresent()){
+            return new ResponseEntity<>(UserOrdersBaseDTO.toDto(order.get()),HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }

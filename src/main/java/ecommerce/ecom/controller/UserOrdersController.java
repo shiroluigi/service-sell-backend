@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,5 +29,9 @@ public class UserOrdersController {
     @PostMapping("/user")
     public ResponseEntity<List<UserOrdersBaseDTO>> getUserOrders(@RequestBody UserBaseDTO user){
         return userOrdersService.getUserOrders(user);
+    }
+    @GetMapping("/{orderId}")
+    public ResponseEntity<UserOrdersBaseDTO> getOrderUsingId(@PathVariable String orderId){
+        return userOrdersService.getOrderUsingId(orderId);
     }
 }

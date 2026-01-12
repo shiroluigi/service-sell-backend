@@ -44,6 +44,7 @@ public class UserOrdersBaseDTO {
         userOrders.setPhone(obj.getPhone());
         userOrders.setProjectRequirements(obj.getProjectRequirements());
         userOrders.setPrice(obj.getPrice());
+        userOrders.setRefundUpi(obj.getRefundUpi());
         userOrders.setService(obj.getService().getService_name());
         return userOrders;
     }
