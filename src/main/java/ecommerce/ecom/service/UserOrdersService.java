@@ -61,7 +61,6 @@ public class UserOrdersService {
             }
             order.setUser(user.get(0));
             order.setTimestamp(LocalDateTime.now());
-            
             order.setService(service.get());
             order.setPrice(service.get().getCurrency() +" "+ service.get().getPrice());
             // Persist
