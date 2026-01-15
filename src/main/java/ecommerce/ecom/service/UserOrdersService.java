@@ -71,7 +71,7 @@ public class UserOrdersService {
         return new ResponseEntity<>(new CommonDTO("ORDER", "OK", ""), HttpStatus.OK);
     }
 
-    public ResponseEntity<List<UserOrdersBaseDTO>> getUserOrders(UserBaseDTO user) {
+    public ResponseEntity<?> getUserOrders(UserBaseDTO user) {
         List<UserOrdersBaseDTO> orders = new ArrayList<>();
         try {
             List<UserOrders> ordersRaw = userOrdersRepository.findAllByUserId(user.getId());
@@ -80,17 +80,17 @@ public class UserOrdersService {
                 orders.add(uob);
             }
         } catch (Exception e) {
-            return new ResponseEntity<>(orders, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new CommonDTO("ORDER", "ERROR", "Something went wrong"), HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
-    public ResponseEntity<UserOrdersBaseDTO> getOrderUsingId(String orderId) {
+    public ResponseEntity<?> getOrderUsingId(String orderId) {
         Optional<UserOrders> order = userOrdersRepository.findById(orderId);
         if(order.isPresent()){
             return new ResponseEntity<>(UserOrdersBaseDTO.toDto(order.get()),HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new CommonDTO("ORDER", "ERROR", "Order not found"), HttpStatus.BAD_REQUEST);
     }
 
 }

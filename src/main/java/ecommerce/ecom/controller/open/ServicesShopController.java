@@ -1,4 +1,4 @@
-package ecommerce.ecom.controller;
+package ecommerce.ecom.controller.open;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import ecommerce.ecom.dto.ServicesShopBaseDTO;
 import ecommerce.ecom.service.ServicesShopService;
 
 @RestController
-@RequestMapping("/services")
+@RequestMapping("/public/services")
 public class ServicesShopController {
     @Autowired
     private ServicesShopService servicesShopService;

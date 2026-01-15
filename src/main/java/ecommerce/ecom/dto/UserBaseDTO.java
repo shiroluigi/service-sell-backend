@@ -13,7 +13,7 @@ public class UserBaseDTO {
     private String password;
     private String phone;
     private String countryCode;
-
+    private String role;
 
     public static User toUser(UserBaseDTO user){
         User converted = new User();
@@ -33,6 +33,7 @@ public class UserBaseDTO {
         converted.setPhone(user.getPhone());
         converted.setCountryCode(user.getCountryCode());
         converted.setId(user.getId());
+        converted.setRole(""+user.getRole());
         return converted;
     }
 }

@@ -1,4 +1,4 @@
-package ecommerce.ecom.controller;
+package ecommerce.ecom.controller.open;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

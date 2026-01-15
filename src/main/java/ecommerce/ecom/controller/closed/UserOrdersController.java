@@ -1,6 +1,4 @@
-package ecommerce.ecom.controller;
-
-import java.util.List;
+package ecommerce.ecom.controller.closed;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,11 +25,11 @@ public class UserOrdersController {
         return userOrdersService.placeOrder(order);
     }
     @PostMapping("/user")
-    public ResponseEntity<List<UserOrdersBaseDTO>> getUserOrders(@RequestBody UserBaseDTO user){
+    public ResponseEntity<?> getUserOrders(@RequestBody UserBaseDTO user){
         return userOrdersService.getUserOrders(user);
     }
     @GetMapping("/{orderId}")
-    public ResponseEntity<UserOrdersBaseDTO> getOrderUsingId(@PathVariable String orderId){
+    public ResponseEntity<?> getOrderUsingId(@PathVariable String orderId){
         return userOrdersService.getOrderUsingId(orderId);
     }
 }
