@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import ecommerce.ecom.Entities.ServicesShop;
 import ecommerce.ecom.Entities.User;
 import ecommerce.ecom.Entities.UserOrders;
+import ecommerce.ecom.common.EmailService;
 import ecommerce.ecom.common.ServicesShopCommonService;
 import ecommerce.ecom.common.UserCommonService;
 import ecommerce.ecom.dto.CommonDTO;
@@ -21,15 +22,20 @@ import ecommerce.ecom.dto.UserBaseDTO;
 import ecommerce.ecom.dto.UserOrdersBaseDTO;
 import ecommerce.ecom.enums.OrderStatusEnum;
 import ecommerce.ecom.repository.UserOrdersRepository;
+import tools.jackson.databind.ObjectMapper;
 
 @Service
 public class UserOrdersService {
     @Autowired
-    UserCommonService userCommonService;
+    private UserCommonService userCommonService;
     @Autowired
-    ServicesShopCommonService servicesShopCommonService;
+    private ServicesShopCommonService servicesShopCommonService;
     @Autowired
-    UserOrdersRepository userOrdersRepository;
+    private UserOrdersRepository userOrdersRepository;
+    @Autowired
+    private EmailService emailService;
+    @Autowired
+    ObjectMapper objectMapper;
 
     public ResponseEntity<CommonDTO> placeOrder(UserOrdersBaseDTO orderDto) {
         try {
@@ -64,7 +70,10 @@ public class UserOrdersService {
             order.setService(service.get());
             order.setPrice(service.get().getCurrency() +" "+ service.get().getPrice());
             // Persist
-            userOrdersRepository.save(order);
+            UserOrders savedOrder = userOrdersRepository.save(order);
+            //Make this more graceful
+            emailService.sendEmail(user.get(0).getEmail(),"Order " + savedOrder.getId(), "Congratulations your order is placed! Please wait for reply from the team.");
+            emailService.sendEmail("rohit.luiji3@gmail.com", "New Order "+ savedOrder.getId(), objectMapper.writeValueAsString(savedOrder));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

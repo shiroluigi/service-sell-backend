@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import ecommerce.ecom.Entities.User;
+import ecommerce.ecom.common.EmailService;
 import ecommerce.ecom.common.UserCommonService;
 import ecommerce.ecom.dto.CommonDTO;
 import ecommerce.ecom.dto.UserBaseDTO;
@@ -21,6 +22,8 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private UserCommonService userCommonService;
+    @Autowired
+    private EmailService emailService;
 
     public ResponseEntity<CommonDTO> registerUser(UserBaseDTO newUser) {
         List<User> userList = userCommonService.findUser(newUser);
@@ -31,6 +34,8 @@ public class UserService {
             User u = UserBaseDTO.toUser(newUser);
             u.setRole(UserRoleEnum.REGULAR_USER);
             userRepository.save(u);
+            //Send email to user about registration
+            emailService.sendEmail(newUser.getEmail(), "Registration Success for Service Sell.", "Thank you "+ newUser.getFirstName() +" for successfully registering with us. \n Your account email is "+ newUser.getEmail());
             return new ResponseEntity<>(new CommonDTO("User Registration", "SUCCESS", ""), HttpStatus.CREATED);
         }
     }
