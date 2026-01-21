@@ -111,6 +111,15 @@
 			<groupId>com.sendgrid</groupId>
 			<artifactId>sendgrid-java</artifactId>
 		</dependency>
+		<!-- Source: https://mvnrepository.com/artifact/com.mailgun/mailgun-java -->
+		<dependency>
+			<groupId>com.mailgun</groupId>
+			<artifactId>mailgun-java</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+
+
+
 
 	</dependencies>
 
