@@ -101,5 +101,7 @@ public class UserOrdersService {
         }
         return new ResponseEntity<>(new CommonDTO("ORDER", "ERROR", "Order not found"), HttpStatus.BAD_REQUEST);
     }
-
+    public ResponseEntity<?> getAllOrders(){
+        return new ResponseEntity<>(userOrdersRepository.findAll(), HttpStatus.OK);
+    }
 }
