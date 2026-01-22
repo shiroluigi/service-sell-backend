@@ -1,4 +1,4 @@
-package ecommerce.ecom.common;
+package ecommerce.ecom.common.email;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -10,6 +10,8 @@ import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
+
+import ecommerce.ecom.common.EmailService;
 
 @Service
 @ConditionalOnProperty(

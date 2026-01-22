@@ -1,4 +1,4 @@
-package ecommerce.ecom.common;
+package ecommerce.ecom.common.email;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -9,6 +9,8 @@ import com.mailgun.api.v3.MailgunMessagesApi;
 import com.mailgun.client.MailgunClient;
 import com.mailgun.model.message.Message;
 import com.mailgun.model.message.MessageResponse;
+
+import ecommerce.ecom.common.EmailService;
 
 @Service
 @ConditionalOnProperty(
