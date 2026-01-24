@@ -2,6 +2,7 @@ package ecommerce.ecom.enums;
 
 public enum OrderStatusEnum {
     ORDER_PLACED,
-    ACCEPTED,
-    DELIVERED
+    IN_PROGRESS,
+    COMPLETED,
+    CANCELLED
 }
