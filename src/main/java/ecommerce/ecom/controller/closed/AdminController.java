@@ -11,12 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ecommerce.ecom.dto.UserOrdersBaseDTO;
 import ecommerce.ecom.service.UserOrdersService;
+import ecommerce.ecom.service.UserService;
 
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
     @Autowired
     private UserOrdersService userOrdersService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/orders/all")
     public ResponseEntity<?> getAllOrders(){
@@ -26,5 +29,9 @@ public class AdminController {
     @PostMapping("/order/edit")
     public ResponseEntity<?> editSingleOrder(@RequestBody UserOrdersBaseDTO order){
         return userOrdersService.editSingleOrder(order);
+    }
+    @GetMapping("/users/all")
+    public ResponseEntity<?> getAllUsers(){
+        return userService.getUsers();
     }
 }

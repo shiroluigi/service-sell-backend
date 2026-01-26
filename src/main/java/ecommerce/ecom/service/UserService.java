@@ -40,8 +40,8 @@ public class UserService {
         }
     }
 
-    public List<User> getUsers() {
-        return userRepository.findAll();
+    public ResponseEntity<List<User>> getUsers() {
+        return new ResponseEntity<>(userRepository.findAll(),HttpStatus.OK);
     }
 
 }
