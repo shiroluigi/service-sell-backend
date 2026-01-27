@@ -2,6 +2,10 @@ package ecommerce.ecom.Entities;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import ecommerce.ecom.enums.OrderStatusEnum;
 import ecommerce.ecom.enums.PaymentStatusEnum;
@@ -25,6 +29,8 @@ public class UserOrders {
     private String id;
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @OnDelete(action = OnDeleteAction.SET_NULL)
+    @JsonIgnore
     private User user;
     private LocalDateTime timestamp;
     @Enumerated(EnumType.STRING)

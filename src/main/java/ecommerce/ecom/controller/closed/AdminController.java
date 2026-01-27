@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ecommerce.ecom.dto.UserBaseDTO;
 import ecommerce.ecom.dto.UserOrdersBaseDTO;
 import ecommerce.ecom.service.UserOrdersService;
 import ecommerce.ecom.service.UserService;
@@ -33,5 +34,13 @@ public class AdminController {
     @GetMapping("/users/all")
     public ResponseEntity<?> getAllUsers(){
         return userService.getUsers();
+    }
+    @PostMapping("/users/add")
+    public ResponseEntity<?> addUserAdmin(@RequestBody UserBaseDTO user){
+        return userService.addUserAdmin(user);
+    }
+    @PostMapping("/users/delete")
+    public ResponseEntity<?> deleteUserAdmin(@RequestBody UserBaseDTO user){
+        return userService.deleteUserAdmin(user);
     }
 }
