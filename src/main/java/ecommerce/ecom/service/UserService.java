@@ -73,12 +73,39 @@ public class UserService {
             User u = userList.get(0);
             userRepository.delete(u);
             // Send email to user about registration
-            emailService.sendEmail(newUser.getEmail(), "Account permanently deleted", "\nYour account email " + newUser.getEmail()+ " is DELETED permanently.\n If this is a mistake please contact support.");
+            emailService.sendEmail(newUser.getEmail(), "Account permanently deleted", "\nYour account email "
+                    + newUser.getEmail() + " is DELETED permanently.\n If this is a mistake please contact support.");
             return new ResponseEntity<>(new CommonDTO("User deletion", "SUCCESS", ""), HttpStatus.OK);
         }
     }
 
     public ResponseEntity<?> getRoles() {
-        return new ResponseEntity<>(Arrays.asList(UserRoleEnum.values()),HttpStatus.OK);
+        return new ResponseEntity<>(Arrays.asList(UserRoleEnum.values()), HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> editUser(UserBaseDTO userDto) {
+        try {
+            List<User> userList = userCommonService.findUser(userDto);
+            if (userList.isEmpty()) {
+                return new ResponseEntity<>(new CommonDTO("User Edit", "fail", "User not found"),
+                        HttpStatus.NOT_FOUND);
+            }
+            User u = userList.get(0);
+            u.setFirstName(userDto.getFirstName());
+            u.setCountryCode(userDto.getCountryCode());
+            u.setRole(UserRoleEnum.valueOf(userDto.getRole()));
+            u.setLastName(userDto.getLastName());
+            if (userDto.getPassword() != null && !userDto.getPassword().isBlank()) {
+                u.setPassword(userDto.getPassword());
+            }
+            u.setPhone(userDto.getPhone());
+            userRepository.save(u);
+            emailService.sendEmail(u.getEmail(), "Account Info Edited", "\nYour account info email "
+                    + u.getEmail() + " has been changed.\n If this is a mistake please contact support.");
+            return new ResponseEntity<>(new CommonDTO("User Edit", "SUCCESS", ""), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new CommonDTO("User Edit", "FAIL", e.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

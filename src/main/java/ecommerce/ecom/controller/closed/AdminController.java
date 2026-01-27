@@ -43,4 +43,8 @@ public class AdminController {
     public ResponseEntity<?> deleteUserAdmin(@RequestBody UserBaseDTO user){
         return userService.deleteUserAdmin(user);
     }
+    @PostMapping("/users/edit")
+    public ResponseEntity<?> editUser(@RequestBody UserBaseDTO user){
+        return userService.editUser(user);
+    }
 }
