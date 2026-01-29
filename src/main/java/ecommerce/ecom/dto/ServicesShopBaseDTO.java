@@ -24,4 +24,13 @@ public class ServicesShopBaseDTO {
         c.setDuration(s.getDuration());
         return c;
     }
+    public static ServicesShop toServicesShop(ServicesShopBaseDTO s){
+        ServicesShop c = new ServicesShop();
+        c.setCurrency(s.getCurrency());
+        c.setDescription(s.getDescription());
+        c.setPrice(Integer.parseInt(s.getPrice()));
+        c.setService_name(s.getService_name());
+        c.setDuration(s.getDuration());
+        return c;
+    }
 }

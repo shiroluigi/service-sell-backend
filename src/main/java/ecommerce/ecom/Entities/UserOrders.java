@@ -39,6 +39,7 @@ public class UserOrders {
     private PaymentStatusEnum paymentStatus;
     @ManyToOne
     @JoinColumn(name = "service_id")
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private ServicesShop service;
     private String refundUpi;
     private String fullName;
